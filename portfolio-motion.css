@@ -1,0 +1,211 @@
+.name-highlight {
+  display: inline-block;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+.site-header .wordmark:is(:hover, :focus-visible) .name-highlight,
+.portfolio-hero-name:hover .name-highlight {
+  color: #7a314c;
+  background-color: #fae3e9;
+  box-shadow: 0 0 0 5px #fae3e9;
+}
+
+.site-frame .site-header nav a {
+  padding-inline: .55rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+
+.site-frame .site-header nav a[aria-current="location"] {
+  border-color: transparent;
+  background: #f6dbe1;
+}
+
+.site-frame .site-header nav a:is(:hover, :focus-visible) {
+  border-color: #c48492;
+  background: #efb8c3;
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .site-frame .site-header .wordmark {
+    align-self: center;
+    max-width: 100%;
+    padding-block: 2px;
+    color: var(--ink);
+    font-size: clamp(.8125rem, 3.5vw, .9375rem);
+    line-height: 1.25;
+    text-align: center;
+  }
+  .site-frame .site-header .name-highlight { white-space: normal; }
+  .site-frame .site-header nav { gap: clamp(3px, 1.2vw, 7px); }
+  .site-frame .site-header nav a { padding-inline: clamp(2px, 1vw, 6px); }
+}
+
+@media (max-width: 360px) {
+  .site-frame .site-header .header-inner { padding-inline: 8px; }
+  .site-frame .site-header nav { gap: 2px; }
+  .site-frame .site-header nav a { padding-inline: 1px; }
+}
+
+#about .about-portrait {
+  position: relative;
+  overflow: hidden;
+}
+
+.portrait-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.portrait-sparkles i {
+  position: absolute;
+  color: #ffd0e4;
+  font: normal 1.45rem/1 sans-serif;
+  text-shadow: 0 1px 3px #382126ab;
+}
+
+.portrait-sparkles i:nth-child(1) { top: 9%; left: 11%; rotate: -16deg; }
+.portrait-sparkles i:nth-child(2) { top: 13%; right: 9%; color: #ffe3a0; }
+.portrait-sparkles i:nth-child(3) { right: 11%; bottom: 10%; rotate: 17deg; }
+.portrait-sparkles i:nth-child(4) { bottom: 11%; left: 13%; color: #ffe3a0; }
+
+@media (hover: hover) {
+  #about .about-portrait:hover .portrait-sparkles { opacity: 1; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  main :is(h1, h2, h3),
+  .site-header,
+  .site-footer,
+  .about-portrait img {
+    transition: translate 200ms ease, scale 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+  }
+
+  main :is(h1, h2, h3):hover { translate: 0 -3px; }
+
+  .name-highlight {
+    transition: color 150ms ease, background-color 150ms ease, box-shadow 150ms ease,
+      translate 150ms ease;
+  }
+
+  .site-header .wordmark:hover .name-highlight,
+  .portfolio-hero-name:hover .name-highlight { translate: 0 -1px; }
+
+  .site-frame .site-header nav a {
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+
+  .site-footer:hover { box-shadow: 0 2px 10px #0a332329; }
+
+  #contact .contact-links > div { transition: background-color 200ms ease; }
+  #contact .contact-links a { transition: color 200ms ease, text-decoration-color 200ms ease, text-underline-offset 200ms ease; }
+
+  #about .about-portrait:hover { animation: portrait-bounce 520ms ease-out; }
+  #about .about-portrait:hover img { scale: 1.035; }
+  #about .about-portrait:hover .portrait-sparkles i { animation: portrait-sparkle 460ms ease-out both; }
+  #about .about-portrait:hover .portrait-sparkles i:nth-child(even) { animation-delay: 90ms; }
+
+  @keyframes portrait-bounce {
+    0%, 100% { translate: 0; }
+    36% { translate: 0 -7px; }
+    74% { translate: 0 -2px; }
+  }
+
+  @keyframes portrait-sparkle {
+    0% { opacity: 0; scale: .4; translate: 0 5px; }
+    62% { opacity: 1; scale: 1.16; }
+    100% { opacity: 1; scale: 1; translate: 0; }
+  }
+
+  .experience-stats > div { transition: translate 180ms ease; }
+  .experience-stats > div:hover { translate: 0 -4px; }
+
+  .experience-note:not(.is-moving) { transition: scale 180ms ease, box-shadow 180ms ease; }
+  .experience-note:not(.is-moving):hover {
+    scale: 1.035;
+    box-shadow: 0 6px 14px #0a332340;
+  }
+}
+
+#contact .contact-links > div:is(:hover, :focus-within) { background-color: #fce5eb; }
+
+#contact .contact-links a:is(:hover, :focus-visible) {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: #a65158;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .3em;
+}
+
+.resume-feedback {
+  position: fixed;
+  z-index: 102;
+  inset-inline-end: clamp(12px, 4vw, 32px);
+  inset-block-end: max(16px, env(safe-area-inset-bottom));
+  max-width: calc(100vw - 24px);
+  padding: 9px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: #f6cbd7;
+  color: var(--ink);
+  font-size: .875rem;
+  font-weight: 650;
+  pointer-events: none;
+}
+
+.resume-feedback:empty {
+  visibility: hidden;
+  padding: 0;
+  border: 0;
+}
+
+.sakura-burst {
+  position: fixed;
+  z-index: 104;
+  inset: 0;
+  overflow: clip;
+  --petal-fall: calc(100dvh - var(--petal-roof) - var(--page-inset) - 16px);
+  pointer-events: none;
+}
+
+.sakura-petal {
+  position: absolute;
+  top: var(--petal-roof);
+  left: var(--petal-start);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * .72);
+  border-radius: 62% 18% 65% 35%;
+  background: linear-gradient(135deg, #fff0f5, #f49aba 86%);
+  clip-path: polygon(0 45%, 15% 14%, 53% 0, 80% 12%, 82% 29%, 99% 27%, 100% 59%, 78% 86%, 41% 100%, 13% 83%);
+  animation: sakura-float var(--petal-time) var(--petal-delay) ease-out both;
+}
+
+@keyframes sakura-float {
+  0% {
+    opacity: 0;
+    transform: translate(0, -3px) rotate(var(--petal-angle)) scale(.7);
+  }
+  8% { opacity: 1; }
+  18% {
+    transform: translate(var(--petal-sway), 8px) rotate(calc(var(--petal-angle) + 20deg));
+    animation-timing-function: cubic-bezier(.44, .08, .57, 1);
+  }
+  48% {
+    transform: translate(calc(var(--petal-sway) * -.7), calc(var(--petal-fall) * .38))
+      rotate(calc(var(--petal-angle) + 95deg));
+    animation-timing-function: ease-in-out;
+  }
+  70% {
+    transform: translate(calc(var(--petal-drift) * .8 + var(--petal-sway) * .35), calc(var(--petal-fall) * .79))
+      rotate(calc(var(--petal-angle) + 160deg));
+  }
+  88%, 100% {
+    transform: translate(var(--petal-drift), var(--petal-fall)) rotate(calc(var(--petal-angle) + 215deg));
+  }
+  88%, 92% { opacity: 1; }
+  100% { opacity: 0; }
+}

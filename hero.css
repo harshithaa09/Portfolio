@@ -1,0 +1,170 @@
+.portfolio-hero {
+  display: grid;
+  align-items: center;
+  min-block-size: calc(100svh - var(--header-height, 76px) - var(--page-inset));
+  padding: clamp(20px, 5svh, 64px) 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.portfolio-hero-inner {
+  width: min(100%, 1180px);
+  margin-inline: auto;
+}
+
+.portfolio-hero-identity {
+  margin-bottom: clamp(22px, 4vw, 44px);
+}
+
+.portfolio-hero-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  font-size: .875rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.portfolio-hero-name::before {
+  content: "";
+  flex: 0 0 18px;
+  height: 3px;
+  background: var(--pink);
+  transform-origin: left;
+}
+
+.portfolio-hero-role {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: .8125rem;
+}
+
+.portfolio-hero h1 {
+  color: var(--ink);
+  max-width: none;
+  margin: 0;
+  font: 700 var(--hero-heading-size)/1.03 var(--display);
+  letter-spacing: -.072em;
+}
+
+.portfolio-hero-type-line {
+  display: grid;
+  justify-items: start;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.portfolio-hero-type-line::before {
+  content: attr(data-reserve);
+  visibility: hidden;
+}
+
+.portfolio-hero-type-line::before,
+.portfolio-hero-type-line > span { grid-area: 1 / 1; }
+
+.portfolio-hero h1 > strong {
+  position: relative;
+  margin-top: .085em;
+  color: var(--blush);
+  font: inherit;
+}
+
+.portfolio-hero-mark {
+  position: relative;
+  isolation: isolate;
+  white-space: nowrap;
+  border-radius: .055em;
+}
+
+.portfolio-hero-mark::after {
+  content: "";
+  position: absolute;
+  inset: auto -.035em -.055em -.04em;
+  z-index: -1;
+  height: .065em;
+  border-radius: 58% 42% 35% 65%;
+  background: var(--blush);
+  transform: rotate(-4deg);
+}
+
+.portfolio-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 23px;
+  margin-top: clamp(24px, 4vw, 44px);
+}
+
+.portfolio-hero-actions a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 12px;
+  color: var(--cta);
+  font-size: .875rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+.portfolio-hero-actions a:first-child {
+  padding: 8px 14px;
+  border-radius: 5px;
+  background: var(--blue);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.portfolio-hero-actions a:hover { color: var(--cta-hover); }
+
+.portfolio-hero-actions a:first-child:hover { background: var(--cta-hover); color: var(--white); }
+
+#top .portfolio-hero-actions a:focus-visible {
+  outline: 2px solid var(--blush);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .portfolio-hero h1 {
+    letter-spacing: -.058em;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio-hero-name {
+    animation: portfolio-name-enter .6s ease-out both;
+  }
+
+  @keyframes portfolio-name-enter {
+    from { opacity: 0; transform: translateY(7px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+.hero-intro-pending .portfolio-hero-typing { visibility: hidden; }
+
+.portfolio-hero-typing {
+  position: relative;
+}
+
+.portfolio-hero-mark:empty::after { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio-hero-typing[data-typing]::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: calc(100% + .075em);
+    inset-block-start: .16em;
+    width: max(1px, .038em);
+    height: .83em;
+    border-radius: 1px;
+    background: var(--cta);
+  }
+
+  .portfolio-hero-typing[data-typing="complete"]::after {
+    animation: portfolio-cursor-blink 1s step-end infinite;
+  }
+
+  @keyframes portfolio-cursor-blink {
+    50% { opacity: 0; }
+  }
+}

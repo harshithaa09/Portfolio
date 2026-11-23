@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
+(() => {
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('hero-intro-pending');
+  }
+
+  function openHero() {
+    if (location.hash || history.state?.portfolioFreshOpen) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+
+  const navigation = performance.getEntriesByType('navigation')[0];
+  const isFreshOpen = history.state?.portfolioFreshOpen || !['reload', 'back_forward'].includes(navigation?.type);
+  if (isFreshOpen) {
+    // Clear shared section anchors before the browser can scroll to them.
+    const previousRestoration = history.scrollRestoration;
+    history.scrollRestoration = 'manual';
+    openHero();
+    window.addEventListener('pageshow', event => {
+      if (!event.persisted && !history.state?.portfolioSection) openHero();
+      requestAnimationFrame(() => { history.scrollRestoration = previousRestoration; });
+    }, { once: true });
+  }
+
+  // Opening a shared fragment in an already open tab can skip the page load.
+  window.addEventListener('hashchange', () => {
+    if (!location.hash || history.state?.portfolioSection) return;
+    history.replaceState({ portfolioFreshOpen: true }, '', location.pathname + location.search);
+    location.reload();
+  });
+})();
+</script><title>Sai Harshitha Sunkara | Marketing Executive &amp; Marcom Specialist</title><meta name="description" content="Marketing Executive and Marcom Specialist at TMI Group, Hyderabad. Three years across content, campaigns, brand communication and recruitment marketing. Explore selected work and download my resume."><meta name="theme-color" content="#D3968C"><link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="styles.css?v=narrower-stats"><link rel="stylesheet" href="hero-cover.css"><link rel="stylesheet" href="hero-edition.css"><link rel="stylesheet" href="hero.css?v=scroll-frame"><script defer src="hero-type.js?v=gentle-typing" onerror="document.documentElement.classList.remove('hero-intro-pending')"></script><link rel="stylesheet" href="work.css?v=middle-gallery"><script defer src="work.js?v=middle-gallery"></script><script defer src="experience.js?v=refresh-counts"></script><link rel="stylesheet" href="margin-fox.css?v=pickup-area"><script defer src="margin-fox.js?v=pickup-area"></script><link rel="stylesheet" href="portfolio-motion.css?v=roof-and-mobile-name"><script defer src="resume-download.js?v=no-rocket"></script><link rel="stylesheet" href="website-showcase.css?v=web-pages-label"><script defer src="website-showcase.js?v=steady-preview"></script></head><body><a class="skip" href="#main">Skip to content</a><div class="site-frame"><header class="site-header"><div class="container header-inner"><a class="wordmark" href="#top"><span class="name-highlight">Sai Harshitha Sunkara.</span></a><nav aria-label="Main navigation"><a href="#about">Profile</a><a href="#experience">Experience</a><a href="#work">Creatives</a><a href="#website-content">Websites</a><a href="#contact">Contact</a></nav></div></header><main id="main"><section class="portfolio-hero" id="top" aria-labelledby="intro-title">
+  <div class="portfolio-hero-inner">
+    <div class="portfolio-hero-identity">
+      <p class="portfolio-hero-name"><span class="name-highlight">Sai Harshitha Sunkara.</span></p>
+      <p class="portfolio-hero-role">Marketing Executive &amp; Marcom Specialist</p>
+    </div>
+    <h1 id="intro-title" aria-label="I turn boring briefs into Stories, Hooks, Taglines, Ads, Gossip.">
+      <span class="portfolio-hero-type-line" data-reserve="I turn boring briefs into">
+        <span class="portfolio-hero-typing" data-brief-prefix aria-hidden="true">I turn boring briefs into</span>
+      </span>
+      <strong class="portfolio-hero-type-line" data-reserve="Taglines">
+        <span class="portfolio-hero-typing portfolio-hero-mark" data-brief-word aria-hidden="true">Stories</span>
+      </strong>
+    </h1>
+    <div class="portfolio-hero-actions">
+      <a href="#work">Explore my work <span aria-hidden="true">↘</span></a>
+      <a href="#contact">Hire me <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>
+<section class="section" id="about" aria-labelledby="about-title"><div class="container about-portrait-layout"><figure class="about-portrait"><img src="assets/images/sai-harshitha-portrait.jpeg" alt="Sai Harshitha Sunkara" width="1086" height="1448" loading="lazy" decoding="async"><span class="portrait-sparkles" aria-hidden="true"><i>♥</i><i>✦</i><i>♥</i><i>✦</i></span></figure><div class="about-copy"><div class="section-heading"><div><p class="eyebrow">Profile</p><h2 id="about-title">A little about me</h2></div></div><div class="about-intro about-intro-only">
+<p>Hi, I'm Sai Harshitha. I write copy and campaigns, and honestly, my favourite thing is when someone actually reads them.</p>
+<p>I love a good headline, I'm curious about everything, and I like keeping things short and a little cheeky.</p>
+<p>Also, I'm probably overthinking a tagline right now.</p>
+</div></div></div></section>
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <div class="container experience-editorial">
+    <header class="experience-company">
+      <p class="eyebrow">Experience</p>
+      <h2 id="experience-title">TMI Group</h2>
+      <p class="experience-role-name">Marketing Executive &amp; Marcom Specialist</p>
+      <p class="experience-dates">September 2023 – Present · Hyderabad</p>
+    </header>
+    <div class="experience-detail">
+      <div class="experience-note-toolbar">
+        <h3 class="experience-lead" id="experience-notes-title">What I do at work</h3>
+        <button class="experience-note-reset" type="button" aria-controls="experience-notes" hidden><span aria-hidden="true">↻</span> Reset notes</button>
+      </div>
+      <p class="experience-sr" id="experience-note-help">Drag a note to move it. On a touch screen, drag the handle. With the keyboard, focus a note and use the arrow keys.</p>
+      <ul class="experience-noteboard" id="experience-notes" aria-labelledby="experience-notes-title">
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Write website copy, blogs, social media content and email campaigns.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Develop campaign concepts, copy and messaging.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Contribute to campaign strategy and planning.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Support website design and content development.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Create concepts and copy for social media creatives.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Develop content for recruitment and employer branding campaigns.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Collaborate with designers on creative execution.</span></button></li>
+        <li><button type="button" class="experience-note" aria-describedby="experience-note-help"><span class="experience-note-grip" aria-hidden="true"></span><span>Manage content across multiple brand accounts.</span></button></li>
+      </ul>
+    </div>
+    <div class="experience-stats-block">
+      <dl class="experience-stats" aria-label="Experience figures">
+        <div><dt>Brands maintained</dt><dd><span class="experience-sr">5</span><span aria-hidden="true" data-experience-value>5</span></dd></div>
+        <div><dt>Campaigns contributed</dt><dd><span class="experience-sr">100+</span><span aria-hidden="true" data-experience-value>100+</span></dd></div>
+        <div><dt>content assets developed</dt><dd><span class="experience-sr">200+</span><span aria-hidden="true" data-experience-value>200+</span></dd></div>
+        <div><dt>responses across</dt><dd><span class="experience-sr">1.89M+</span><span aria-hidden="true" data-experience-value>1.89M+</span></dd></div>
+        <div><dt>website users reached</dt><dd><span class="experience-sr">559K+</span><span aria-hidden="true" data-experience-value>559K+</span></dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <header class="work-wall-header">
+      <p class="eyebrow">Portfolio</p>
+      <h2 id="work-title">Creatives</h2>
+      <p id="work-intro">Open a folder to see the creatives I designed.</p>
+    </header>
+    <div id="work-categories"></div>
+    <section id="work-panel" aria-label="Creative work" hidden>
+      <button type="button" class="work-back">All folders</button>
+      <div class="work-row">
+        <button type="button" class="work-row-button" data-row-step="-1" aria-label="Previous creatives" aria-controls="work-wall">‹</button>
+        <div id="work-wall"></div>
+        <button type="button" class="work-row-button" data-row-step="1" aria-label="Next creatives" aria-controls="work-wall">›</button>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section class="section web-projects" id="website-content" aria-labelledby="website-content-title">
+<div class="container">
+  <div class="section-heading"><div>
+    <p class="eyebrow">Portfolio</p>
+    <h2 id="website-content-title">Websites</h2>
+    <p class="website-section-label">Web pages</p>
+  </div></div>
+  <div class="website-showcase">
+    <div class="website-directory" role="group" aria-label="Portfolio websites and landing pages">
+      <ul class="website-list" aria-label="Websites">
+          <li><button type="button" class="website-choice" aria-pressed="true" aria-controls="website-screen" data-preview="assets/web-previews/quanta-people.webp" data-url="https://www.quantapeople.com/"><img class="website-choice-thumb" src="assets/web-previews/quanta-people.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>Quanta People</span></button></li>
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/tmi-e2e.webp" data-url="https://tmie2e.com/"><img class="website-choice-thumb" src="assets/web-previews/tmi-e2e.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>TMI e2E</span></button></li>
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/tmi-foundation.webp" data-url="https://tmi-foundation.org/"><img class="website-choice-thumb" src="assets/web-previews/tmi-foundation.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>TMI Foundation</span></button></li>
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/lift.webp" data-url="https://tminetwork.com/lift/"><img class="website-choice-thumb" src="assets/web-previews/lift.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>TMI LIFT</span></button></li>
+      </ul>
+      <h3 id="website-landing-label">Landing pages</h3>
+      <ul class="website-list" aria-labelledby="website-landing-label">
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/hdfc.webp" data-url="https://tminetwork.com/hdfc/"><img class="website-choice-thumb" src="assets/web-previews/hdfc.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>HDFC Sales</span></button></li>
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/indiafirst.webp" data-url="https://tminetwork.com/indiafirst1.html"><img class="website-choice-thumb" src="assets/web-previews/indiafirst.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>IndiaFirst Life</span></button></li>
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/sboss.webp" data-url="https://tminetwork.com/sboss.html"><img class="website-choice-thumb" src="assets/web-previews/sboss.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>SBOSS</span></button></li>
+          <li><button type="button" class="website-choice" aria-pressed="false" aria-controls="website-screen" data-preview="assets/web-previews/nippon.webp" data-url="https://tminetwork.com/nippon/"><img class="website-choice-thumb" src="assets/web-previews/nippon.webp" alt="" width="72" height="41" loading="lazy" decoding="async"><span>IndusInd Nippon Life</span></button></li>
+      </ul>
+    </div>
+    <figure class="website-monitor">
+      <div class="website-monitor-frame">
+        <div class="website-monitor-screen" id="website-screen">
+          <img class="website-screen-image" src="assets/web-previews/quanta-people.webp" alt="Screenshot of Quanta People" width="880" height="495" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <figcaption class="website-monitor-controls">
+        <div class="website-preview-info">
+          <p class="website-screen-title" id="website-preview-title" aria-live="polite">Quanta People</p>
+        </div>
+        <a class="website-live-link" href="https://www.quantapeople.com/" target="_blank" rel="noopener" aria-label="Visit the Quanta People site (opens in a new tab)">Visit live site</a>
+      </figcaption>
+    </figure>
+  </div>
+</div>
+</section>
+<section class="section" id="skills" aria-labelledby="skills-title"><div class="container"><div class="section-heading"><div><p class="eyebrow">Capabilities</p><h2 id="skills-title">Where I Add Value</h2></div></div><div class="value-rows"><div class="value-row"><h3><span class="value-number">01 <span aria-hidden="true">—</span></span> Content &amp; Storytelling</h3><ul><li>Content Strategy</li><li>Copywriting</li><li>SEO Writing</li><li>Brand Communication</li></ul></div><div class="value-row"><h3><span class="value-number">02 <span aria-hidden="true">—</span></span> Digital Marketing</h3><ul><li>Social Media Marketing</li><li>Email Marketing</li><li>Campaign Management</li><li>Lead Generation</li></ul></div><div class="value-row"><h3><span class="value-number">03 <span aria-hidden="true">—</span></span> Brand &amp; Communication</h3><ul><li>Recruitment Marketing</li><li>Product Marketing</li><li>Client Communications</li><li>Campaign Development</li></ul></div></div></div></section>
+
+<section class="section contact" id="contact" aria-labelledby="contact-title"><div class="container"><p class="eyebrow">Contact</p><h2 id="contact-title"><span>Got a boring brief?</span> <span>Send it <em>over.</em></span></h2><div class="contact-layout"><div>
+<p>I'm open to marketing, content, marcom and digital roles. Hyderabad or remote, I'm easy.</p>
+<div class="contact-actions">
+  <a class="button primary contact-resume" href="assets/documents/sai-harshitha-sunkara-resume.pdf" download="Sai-Harshitha-Sunkara-Resume.pdf">Download resume</a>
+</div>
+<p class="contact-response">I usually reply within two working days.</p>
+</div><dl class="contact-links"><div><dt>Email</dt><dd><a href="mailto:saiharshithasunkara@gmail.com">saiharshithasunkara@gmail.com <span aria-hidden="true">↗</span></a></dd></div><div><dt>Phone</dt><dd><a href="tel:+919908999959">+91 9908999959</a></dd></div><div><dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/theharshitha-s/" target="_blank" rel="noopener">View LinkedIn profile <span aria-hidden="true">↗</span></a></dd></div></dl></div></div>
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <p>Written (and overthought) by Sai Harshitha.</p>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+</section></main></div>
+<dialog id="creativePreview" class="work-dialog" aria-label="Creative preview">
+  <header class="work-viewer-header">
+    <span class="work-type"></span>
+    <button class="work-close" type="button" aria-label="Close preview" autofocus>×</button>
+  </header>
+  <div class="work-viewer-stage" tabindex="0" aria-label="Scrollable preview">
+    <img class="work-full" alt="" hidden>
+    <p class="work-preview-error" role="status" hidden>This preview could not load.</p>
+    <div class="work-pdf-pages" hidden></div>
+  </div>
+  <footer class="work-viewer-footer">
+    <div class="work-preview-nav">
+      <button type="button" data-step="-1" aria-label="Previous creative">←</button>
+      <p class="work-position" aria-live="polite"></p>
+      <button type="button" data-step="1" aria-label="Next creative">→</button>
+    </div>
+    <p class="work-note" hidden></p>
+    <button class="work-zoom" type="button">Zoom in</button>
+    <a class="work-download" download hidden>Download PDF</a>
+  </footer>
+</dialog><script src="interactions.js?v=roof-sakura" defer></script><div class="margin-fox">
+  <div class="fox-run" aria-hidden="true">
+    <span class="fox-tail"></span>
+    <span class="fox-paw fox-paw--front fox-paw--far"></span>
+    <span class="fox-paw fox-paw--rear fox-paw--far"></span>
+    <span class="fox-body"></span>
+    <span class="fox-paw fox-paw--front"></span>
+    <span class="fox-paw fox-paw--rear"></span>
+    <span class="fox-head"><i class="fox-ear"></i><i class="fox-ear"></i><i class="fox-face"></i></span>
+  </div>
+  <span class="fox-dizzy" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span class="fox-sparkles" aria-hidden="true"><i></i><i></i><i></i></span>
+  <span class="fox-hearts" aria-hidden="true"><i>♥</i><i>♥</i><i>♥</i></span>
+  <button class="fox-pickup" type="button" aria-label="Pick up fox" aria-pressed="false"></button>
+</div><div class="resume-feedback" role="status" aria-live="polite"></div>
+</body></html>
