@@ -188,7 +188,7 @@
     sakura-fade var(--petal-time) var(--petal-delay) linear both;
 }
 
-/* One continuous fall: each motion is its own two-point animation, so nothing stops and restarts. */
+/* The earlier swaying path, as one continuous fall: y never stops or restarts. */
 @keyframes sakura-fall {
   from { translate: 0 -3px; }
   to { translate: var(--petal-drift) var(--petal-fall); }
@@ -196,12 +196,14 @@
 
 @keyframes sakura-sway {
   0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(var(--petal-sway)); }
+  20% { transform: translateX(var(--petal-sway)); }
+  50% { transform: translateX(calc(var(--petal-sway) * -.7)); }
+  78% { transform: translateX(calc(var(--petal-sway) * .35)); }
 }
 
 @keyframes sakura-spin {
   from { rotate: var(--petal-angle); }
-  to { rotate: calc(var(--petal-angle) + 240deg); }
+  to { rotate: calc(var(--petal-angle) + 215deg); }
 }
 
 @keyframes sakura-fade {

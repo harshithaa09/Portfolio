@@ -111,9 +111,15 @@
     const from = pullShift;
     pullShift = 0;
     pageFrame.style.translate = '';
-    pageFrame.animate([
-      { translate: `0 ${from.toFixed(2)}px` }, { translate: '0 0' },
-    ], { duration: 560, easing: 'cubic-bezier(.34, 1.45, .64, 1)' });
+    // Damped spring: a quick snap back past the top, one small rebound, then rest.
+    const wn = 30, zeta = .45, wd = wn * Math.sqrt(1 - zeta * zeta), duration = 360;
+    const frames = [];
+    for (let i = 0; i <= 18; i++) {
+      const t = i / 18 * duration / 1000;
+      const y = i === 18 ? 0 : from * Math.exp(-zeta * wn * t) * Math.cos(wd * t);
+      frames.push({ translate: `0 ${y.toFixed(2)}px` });
+    }
+    pageFrame.animate(frames, { duration, easing: 'linear' });
   }
 
   function dropPetals() {
@@ -181,7 +187,7 @@
       wheelPull = 0;
       wheelBurst = false;
       releaseFrame();
-    }, 70);
+    }, 50);
   }, { passive: true });
 
   const metrics = document.querySelector('.metrics');
