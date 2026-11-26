@@ -29,6 +29,12 @@
   padding: 0;
 }
 
+#website-content #website-web-label {
+  margin: 0 0 7px;
+  color: var(--ink);
+  font: 750 .875rem/1.2 var(--body);
+}
+
 #website-content #website-landing-label {
   margin: 13px 0 7px;
   padding-top: 10px;
@@ -183,6 +189,7 @@
     padding: 4px 5px;
     font-size: .75rem;
   }
+  #website-content #website-web-label { margin: 0 0 4px; }
   #website-content #website-landing-label { margin: 7px 0 4px; padding-top: 6px; }
 }
 
