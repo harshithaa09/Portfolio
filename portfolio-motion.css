@@ -181,31 +181,32 @@
   border-radius: 62% 18% 65% 35%;
   background: linear-gradient(135deg, #fff0f5, #f49aba 86%);
   clip-path: polygon(0 45%, 15% 14%, 53% 0, 80% 12%, 82% 29%, 99% 27%, 100% 59%, 78% 86%, 41% 100%, 13% 83%);
-  animation: sakura-float var(--petal-time) var(--petal-delay) ease-out both;
+  animation:
+    sakura-fall var(--petal-time) var(--petal-delay) cubic-bezier(.3, .12, .45, 1) both,
+    sakura-sway var(--petal-time) var(--petal-delay) ease-in-out both,
+    sakura-spin var(--petal-time) var(--petal-delay) linear both,
+    sakura-fade var(--petal-time) var(--petal-delay) linear both;
 }
 
-@keyframes sakura-float {
-  0% {
-    opacity: 0;
-    transform: translate(0, -3px) rotate(var(--petal-angle)) scale(.7);
-  }
-  8% { opacity: 1; }
-  18% {
-    transform: translate(var(--petal-sway), 8px) rotate(calc(var(--petal-angle) + 20deg));
-    animation-timing-function: cubic-bezier(.44, .08, .57, 1);
-  }
-  48% {
-    transform: translate(calc(var(--petal-sway) * -.7), calc(var(--petal-fall) * .38))
-      rotate(calc(var(--petal-angle) + 95deg));
-    animation-timing-function: ease-in-out;
-  }
-  70% {
-    transform: translate(calc(var(--petal-drift) * .8 + var(--petal-sway) * .35), calc(var(--petal-fall) * .79))
-      rotate(calc(var(--petal-angle) + 160deg));
-  }
-  88%, 100% {
-    transform: translate(var(--petal-drift), var(--petal-fall)) rotate(calc(var(--petal-angle) + 215deg));
-  }
-  88%, 92% { opacity: 1; }
-  100% { opacity: 0; }
+/* One continuous fall: each motion is its own two-point animation, so nothing stops and restarts. */
+@keyframes sakura-fall {
+  from { translate: 0 -3px; }
+  to { translate: var(--petal-drift) var(--petal-fall); }
+}
+
+@keyframes sakura-sway {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(var(--petal-sway)); }
+}
+
+@keyframes sakura-spin {
+  from { rotate: var(--petal-angle); }
+  to { rotate: calc(var(--petal-angle) + 240deg); }
+}
+
+@keyframes sakura-fade {
+  0% { opacity: 0; scale: .7; }
+  10% { opacity: 1; scale: 1; }
+  82% { opacity: 1; }
+  100% { opacity: 0; scale: 1; }
 }

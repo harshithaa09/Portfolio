@@ -98,12 +98,22 @@
   let wheelBurst = false;
   let lastBurst = -Infinity;
 
-  function bounceFrame() {
-    if (!pageFrame || reduced.matches || scrollY > 2) return;
+  let pullShift = 0;
+
+  function pullFrame(distance) {
+    if (!pageFrame || reduced.matches) return;
+    pullShift = 48 * (1 - Math.exp(-distance / 140));
+    pageFrame.style.translate = `0 ${pullShift.toFixed(2)}px`;
+  }
+
+  function releaseFrame() {
+    if (!pullShift) return;
+    const from = pullShift;
+    pullShift = 0;
+    pageFrame.style.translate = '';
     pageFrame.animate([
-      { translate: '0 0' }, { translate: '0 7px', offset: .25 },
-      { translate: '0 -2px', offset: .7 }, { translate: '0 0' },
-    ], { duration: 360, easing: 'ease-out' });
+      { translate: `0 ${from.toFixed(2)}px` }, { translate: '0 0' },
+    ], { duration: 560, easing: 'cubic-bezier(.34, 1.45, .64, 1)' });
   }
 
   function dropPetals() {
@@ -130,7 +140,6 @@
       burst.append(petal);
     }
     document.body.append(burst);
-    setTimeout(bounceFrame, 850);
     setTimeout(() => burst.remove(), 2600);
     return true;
   }
@@ -141,15 +150,18 @@
       ? { x: event.touches[0].clientX, y: event.touches[0].clientY, fired: false } : undefined;
   }, { passive: true });
   addEventListener('touchmove', event => {
-    if (!touchPull || touchPull.fired || event.touches.length !== 1) return;
+    if (!touchPull || event.touches.length !== 1) return;
     const point = event.touches[0];
     if (scrollY > 2 || Math.abs(point.clientX - touchPull.x) > 35) {
       touchPull = undefined;
+      releaseFrame();
       return;
     }
-    if (point.clientY - touchPull.y >= 12) touchPull.fired = dropPetals();
+    const distance = point.clientY - touchPull.y;
+    pullFrame(Math.max(0, distance));
+    if (!touchPull.fired && distance >= 12) touchPull.fired = dropPetals();
   }, { passive: true });
-  function finishPull() { touchPull = undefined; }
+  function finishPull() { touchPull = undefined; releaseFrame(); }
   addEventListener('touchend', finishPull, { passive: true });
   addEventListener('touchcancel', finishPull, { passive: true });
 
@@ -158,15 +170,18 @@
     if (scrollY > 2 || event.deltaY >= 0 || event.ctrlKey || event.target.closest('dialog')) {
       wheelPull = 0;
       wheelBurst = false;
+      releaseFrame();
       return;
     }
     const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1;
     wheelPull -= event.deltaY * unit;
+    pullFrame(wheelPull);
     if (!wheelBurst && wheelPull >= 12) wheelBurst = dropPetals();
     wheelRelease = setTimeout(() => {
       wheelPull = 0;
       wheelBurst = false;
-    }, 100);
+      releaseFrame();
+    }, 70);
   }, { passive: true });
 
   const metrics = document.querySelector('.metrics');
