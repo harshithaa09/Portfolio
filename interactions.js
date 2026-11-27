@@ -112,7 +112,7 @@
     pullShift = 0;
     pageFrame.style.translate = '';
     // Damped spring: a quick snap back past the top, one small rebound, then rest.
-    const wn = 30, zeta = .45, wd = wn * Math.sqrt(1 - zeta * zeta), duration = 360;
+    const wn = 55, zeta = .45, wd = wn * Math.sqrt(1 - zeta * zeta), duration = 200;
     const frames = [];
     for (let i = 0; i <= 18; i++) {
       const t = i / 18 * duration / 1000;
@@ -187,7 +187,7 @@
       wheelPull = 0;
       wheelBurst = false;
       releaseFrame();
-    }, 50);
+    }, 30);
   }, { passive: true });
 
   const metrics = document.querySelector('.metrics');
