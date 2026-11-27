@@ -98,34 +98,24 @@
   let wheelBurst = false;
   let lastBurst = -Infinity;
 
-  let pullShift = 0;
-
-  function pullFrame(distance) {
+  // One quick tug down, an instant snap back, then a single small jiggle past the top.
+  function snapFrame() {
     if (!pageFrame || reduced.matches) return;
-    pullShift = 48 * (1 - Math.exp(-distance / 140));
-    pageFrame.style.translate = `0 ${pullShift.toFixed(2)}px`;
-  }
-
-  function releaseFrame() {
-    if (!pullShift) return;
-    const from = pullShift;
-    pullShift = 0;
-    pageFrame.style.translate = '';
-    // Damped spring: a quick snap back past the top, one small rebound, then rest.
-    const wn = 55, zeta = .45, wd = wn * Math.sqrt(1 - zeta * zeta), duration = 200;
-    const frames = [];
-    for (let i = 0; i <= 18; i++) {
-      const t = i / 18 * duration / 1000;
-      const y = i === 18 ? 0 : from * Math.exp(-zeta * wn * t) * Math.cos(wd * t);
-      frames.push({ translate: `0 ${y.toFixed(2)}px` });
-    }
-    pageFrame.animate(frames, { duration, easing: 'linear' });
+    pageFrame.animate([
+      { translate: '0 0', offset: 0, easing: 'cubic-bezier(.2, .7, .4, 1)' },
+      { translate: '0 11px', offset: .15, easing: 'cubic-bezier(.55, 0, .9, .5)' },
+      { translate: '0 0', offset: .37, easing: 'cubic-bezier(.2, .6, .35, 1)' },
+      { translate: '0 -5px', offset: .55, easing: 'cubic-bezier(.4, 0, .4, 1)' },
+      { translate: '0 2px', offset: .78, easing: 'cubic-bezier(.4, 0, .3, 1)' },
+      { translate: '0 0', offset: 1 },
+    ], { duration: 300, easing: 'linear' });
   }
 
   function dropPetals() {
     const now = performance.now();
     if (reduced.matches || scrollY > 2 || now - lastBurst < 350) return false;
     lastBurst = now;
+    snapFrame();
 
     const burst = document.createElement('div');
     burst.className = 'sakura-burst';
@@ -160,14 +150,11 @@
     const point = event.touches[0];
     if (scrollY > 2 || Math.abs(point.clientX - touchPull.x) > 35) {
       touchPull = undefined;
-      releaseFrame();
       return;
     }
-    const distance = point.clientY - touchPull.y;
-    pullFrame(Math.max(0, distance));
-    if (!touchPull.fired && distance >= 12) touchPull.fired = dropPetals();
+    if (!touchPull.fired && point.clientY - touchPull.y >= 12) touchPull.fired = dropPetals();
   }, { passive: true });
-  function finishPull() { touchPull = undefined; releaseFrame(); }
+  function finishPull() { touchPull = undefined; }
   addEventListener('touchend', finishPull, { passive: true });
   addEventListener('touchcancel', finishPull, { passive: true });
 
@@ -176,18 +163,15 @@
     if (scrollY > 2 || event.deltaY >= 0 || event.ctrlKey || event.target.closest('dialog')) {
       wheelPull = 0;
       wheelBurst = false;
-      releaseFrame();
       return;
     }
     const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1;
     wheelPull -= event.deltaY * unit;
-    pullFrame(wheelPull);
     if (!wheelBurst && wheelPull >= 12) wheelBurst = dropPetals();
     wheelRelease = setTimeout(() => {
       wheelPull = 0;
       wheelBurst = false;
-      releaseFrame();
-    }, 30);
+    }, 100);
   }, { passive: true });
 
   const metrics = document.querySelector('.metrics');
